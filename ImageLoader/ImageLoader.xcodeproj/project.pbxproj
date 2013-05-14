@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0149900D1742D9B4008F3304 /* ILROImageList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149900C1742D9B4008F3304 /* ILROImageList.m */; };
+		014990101742D9C6008F3304 /* ILROImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149900F1742D9C6008F3304 /* ILROImage.m */; };
 		01A7E1E417427FAB002744C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E1E317427FAB002744C4 /* UIKit.framework */; };
 		01A7E1E617427FAB002744C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E1E517427FAB002744C4 /* Foundation.framework */; };
 		01A7E1E817427FAB002744C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E1E717427FAB002744C4 /* CoreGraphics.framework */; };
@@ -69,6 +71,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0149900B1742D9B4008F3304 /* ILROImageList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILROImageList.h; path = restobjects/ILROImageList.h; sourceTree = "<group>"; };
+		0149900C1742D9B4008F3304 /* ILROImageList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILROImageList.m; path = restobjects/ILROImageList.m; sourceTree = "<group>"; };
+		0149900E1742D9C6008F3304 /* ILROImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILROImage.h; path = restobjects/ILROImage.h; sourceTree = "<group>"; };
+		0149900F1742D9C6008F3304 /* ILROImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILROImage.m; path = restobjects/ILROImage.m; sourceTree = "<group>"; };
 		01A7E1E017427FAB002744C4 /* ImageLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A7E1E317427FAB002744C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		01A7E1E517427FAB002744C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -120,6 +126,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0149900A1742D98B008F3304 /* restobjects */ = {
+			isa = PBXGroup;
+			children = (
+				0149900B1742D9B4008F3304 /* ILROImageList.h */,
+				0149900C1742D9B4008F3304 /* ILROImageList.m */,
+				0149900E1742D9C6008F3304 /* ILROImage.h */,
+				0149900F1742D9C6008F3304 /* ILROImage.m */,
+			);
+			name = restobjects;
+			sourceTree = "<group>";
+		};
 		01A7E1D717427FAA002744C4 = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +173,7 @@
 		01A7E1E917427FAB002744C4 /* ImageLoader */ = {
 			isa = PBXGroup;
 			children = (
+				0149900A1742D98B008F3304 /* restobjects */,
 				01A7E2331742D4D9002744C4 /* managers */,
 				01A7E20F1742C41C002744C4 /* controllers */,
 				01A7E1F217427FAB002744C4 /* ILAppDelegate.h */,
@@ -334,6 +352,8 @@
 				01A7E2121742C433002744C4 /* ILMainNavigationController.m in Sources */,
 				01A7E2161742C613002744C4 /* ILImageListCell.m in Sources */,
 				01A7E2361742D504002744C4 /* ILServerManager.m in Sources */,
+				0149900D1742D9B4008F3304 /* ILROImageList.m in Sources */,
+				014990101742D9C6008F3304 /* ILROImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

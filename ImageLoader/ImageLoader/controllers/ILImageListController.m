@@ -9,7 +9,7 @@
 #import "ILImageListController.h"
 #import "ILImageListCell.h"
 #import "ILServerManager.h"
-
+#import "ILROImage.h"
 @interface ILImageListController ()
 
 @end
@@ -40,7 +40,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(imageListLoaded:)
+                                                 name:nImagesLoaded
+											   object:[ILServerManager shared]];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -51,26 +57,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [data count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     ILImageListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell) {
-        
+    if (!cell) {
+        cell = [[ILImageListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
     }
     
+    ILROImage *obj = [data objectAtIndex:indexPath.row];
+    cell.textLabel.text = obj.name;
     // Configure the cell...
     
     return cell;
@@ -130,13 +135,21 @@
 
 - (void) refreshButtonTap:(id)selector {
     NSLog(@"refresh start");
-    [ILServerManager shared];
+    [self updateList];
     
 }
 - (void) aboutButtonTap:(id)selector {
 }
 - (void) updateList{
+    [[ILServerManager shared] loadImageList];
+}
+
+-(void) imageListLoaded:(NSNotification*)notification{
+
+    data = [notification.userInfo objectForKey:@"list"];
+    [self.tableView reloadData];
     
 }
+
 
 @end

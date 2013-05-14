@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
+#define nImagesLoaded @"imagesLoadedNotitfication"
+
 @interface ILServerManager : NSObject{
     RKObjectManager* manager;
 }
 +(ILServerManager *) shared;
+-(void) loadImageList;
 @end
