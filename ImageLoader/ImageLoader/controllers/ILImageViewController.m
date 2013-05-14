@@ -1,0 +1,48 @@
+//
+//  ILImageViewController.m
+//  ImageLoader
+//
+//  Created by Andrey Mukhametov on 15.05.13.
+//  Copyright (c) 2013 Andrey Mukhametov. All rights reserved.
+//
+
+#import "ILImageViewController.h"
+#import "ILImageManager.h"
+@interface ILImageViewController ()
+
+@end
+
+@implementation ILImageViewController
+
+- (id)initWithImageWithURL:(NSString *)aURL{
+    self = [super initWithNibName:@"ILImageViewController" bundle:nil];
+    if (self) {
+        url = aURL;
+        
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [[ILImageManager shared] cacheImageURL:url withImageView:self.imageView];
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+@end

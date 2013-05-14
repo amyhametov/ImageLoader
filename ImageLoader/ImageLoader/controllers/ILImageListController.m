@@ -11,6 +11,7 @@
 #import "ILServerManager.h"
 #import "ILROImage.h"
 #import "ILImageManager.h"
+#import "ILImageViewController.h"
 @interface ILImageListController ()
 
 @end
@@ -126,7 +127,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ILROImage *obj = [data objectAtIndex:indexPath.row];
-    [[ILImageManager shared] cacheImageURL:obj.url];
+    ILImageViewController *imageViewController = [[ILImageViewController alloc] initWithImageWithURL:obj.url];
+    [self.navigationController pushViewController:imageViewController animated:YES];
+    //[[ILImageManager shared] cacheImageURL:obj.url withImageView:nil];
+    
     
 }
 

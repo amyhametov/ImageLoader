@@ -30,7 +30,7 @@
     return self;
 }
 
--(void) cacheImageURL:(NSString*)url{
+-(void) cacheImageURL:(NSString*)url withImageView:(id)view{
     
     if (url!=nil){
         NSMutableString *fileName= [NSMutableString stringWithString:url];
@@ -44,9 +44,17 @@
         
         if(isFile)
         {
-            if ([UIImage imageWithContentsOfFile:storePath]){
+            UIImage *image = [UIImage imageWithContentsOfFile:storePath];
+            if (image){
                 NSLog(@"load from file");
-                
+                if ([view isMemberOfClass:[UIImageView class]]) {
+                    ((UIImageView *)view).image = image;
+                }
+                if ([view isMemberOfClass:[UIWebView class]]) {
+                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:storePath]];
+                    NSData *data = [NSData dataWithContentsOfFile:storePath];
+                    [(UIWebView *)view loadData:data MIMEType:@"image/gif" textEncodingName:nil baseURL:nil];                    
+                }
             }
         }
         else
@@ -60,6 +68,13 @@
                 {
                     NSLog(@"Image loaded %@",response.URL.absoluteString);
                     [data writeToFile:storePath atomically:YES];
+                    if ([view isMemberOfClass:[UIImageView class]]) {
+                        ((UIImageView *)view).image = [UIImage imageWithData:data];
+                    }
+                    if ([view isMemberOfClass:[UIWebView class]]) {
+                        [(UIWebView *)view loadData:data MIMEType:@"image/gif" textEncodingName:nil baseURL:nil];
+                        
+                    }
                 }
                 else{
                     NSLog(@"ERROR %@",response.URL.absoluteString);

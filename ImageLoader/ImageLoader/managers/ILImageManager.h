@@ -13,6 +13,6 @@
 @property (nonatomic,retain) RequestQueue *queue;
 
 +(ILImageManager *) shared;
--(void) cacheImageURL:(NSString*)url;
+-(void) cacheImageURL:(NSString*)url withImageView:(id)view;
 
 @end

@@ -11,6 +11,8 @@
 		014990101742D9C6008F3304 /* ILROImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149900F1742D9C6008F3304 /* ILROImage.m */; };
 		014990131742E703008F3304 /* ILImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 014990121742E703008F3304 /* ILImageManager.m */; };
 		014990171742EA09008F3304 /* RequestQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 014990161742EA09008F3304 /* RequestQueue.m */; };
+		0149901B1742EF14008F3304 /* ILImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014990191742EF14008F3304 /* ILImageViewController.m */; };
+		0149901C1742EF14008F3304 /* ILImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0149901A1742EF14008F3304 /* ILImageViewController.xib */; };
 		01A7E1E417427FAB002744C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E1E317427FAB002744C4 /* UIKit.framework */; };
 		01A7E1E617427FAB002744C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E1E517427FAB002744C4 /* Foundation.framework */; };
 		01A7E1E817427FAB002744C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A7E1E717427FAB002744C4 /* CoreGraphics.framework */; };
@@ -79,6 +81,9 @@
 		014990121742E703008F3304 /* ILImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILImageManager.m; path = managers/ILImageManager.m; sourceTree = "<group>"; };
 		014990151742EA09008F3304 /* RequestQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestQueue.h; sourceTree = "<group>"; };
 		014990161742EA09008F3304 /* RequestQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestQueue.m; sourceTree = "<group>"; };
+		014990181742EF14008F3304 /* ILImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILImageViewController.h; path = controllers/ILImageViewController.h; sourceTree = "<group>"; };
+		014990191742EF14008F3304 /* ILImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILImageViewController.m; path = controllers/ILImageViewController.m; sourceTree = "<group>"; };
+		0149901A1742EF14008F3304 /* ILImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ILImageViewController.xib; path = controllers/ILImageViewController.xib; sourceTree = "<group>"; };
 		01A7E1E017427FAB002744C4 /* ImageLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A7E1E317427FAB002744C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		01A7E1E517427FAB002744C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -218,6 +223,9 @@
 				01A7E20D1742C3EE002744C4 /* ILImageListController.m */,
 				01A7E2101742C433002744C4 /* ILMainNavigationController.h */,
 				01A7E2111742C433002744C4 /* ILMainNavigationController.m */,
+				014990181742EF14008F3304 /* ILImageViewController.h */,
+				014990191742EF14008F3304 /* ILImageViewController.m */,
+				0149901A1742EF14008F3304 /* ILImageViewController.xib */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -347,6 +355,7 @@
 				01A7E1F617427FAB002744C4 /* Default.png in Resources */,
 				01A7E1F817427FAB002744C4 /* Default@2x.png in Resources */,
 				01A7E1FA17427FAB002744C4 /* Default-568h@2x.png in Resources */,
+				0149901C1742EF14008F3304 /* ILImageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +376,7 @@
 				014990101742D9C6008F3304 /* ILROImage.m in Sources */,
 				014990131742E703008F3304 /* ILImageManager.m in Sources */,
 				014990171742EA09008F3304 /* RequestQueue.m in Sources */,
+				0149901B1742EF14008F3304 /* ILImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
