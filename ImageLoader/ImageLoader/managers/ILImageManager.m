@@ -7,6 +7,9 @@
 //
 
 #import "ILImageManager.h"
+#import "OLImageView.h"
+#import "OLImage.h"
+
 
 @implementation ILImageManager
 @synthesize queue;
@@ -54,6 +57,12 @@
                     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:storePath]];
                     NSData *data = [NSData dataWithContentsOfFile:storePath];
                     [(UIWebView *)view loadData:data MIMEType:@"image/gif" textEncodingName:nil baseURL:nil];                    
+                }
+                if ([view isMemberOfClass:[OLImageView class]]) {
+                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:storePath]];
+                    NSData *data = [NSData dataWithContentsOfFile:storePath];
+                    UIImage *image = [OLImage imageWithData:data];
+                    ((OLImageView *)view).image = image;
                 }
             }
         }

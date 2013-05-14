@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OLImageView.h"
 
 @interface ILImageViewController : UIViewController{
     NSString *url;
 }
 @property (nonatomic,assign) IBOutlet UIWebView *imageView;
+@property (nonatomic,assign) IBOutlet OLImageView *imageViewTest;
+
 - (id)initWithImageWithURL:(NSString *)aURL;
 @end

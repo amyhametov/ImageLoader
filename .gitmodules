@@ -1,3 +1,6 @@
 [submodule "RestKit"]
 	path = RestKit
 	url = git://github.com/RestKit/RestKit.git
+[submodule "OLImageView"]
+	path = OLImageView
+	url = git://github.com/ondalabs/OLImageView.git

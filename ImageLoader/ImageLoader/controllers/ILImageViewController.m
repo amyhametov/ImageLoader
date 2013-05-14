@@ -35,8 +35,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[ILImageManager shared] cacheImageURL:url withImageView:self.imageView];
-    // Do any additional setup after loading the view from its nib.
+//    [[ILImageManager shared] cacheImageURL:url withImageView:self.imageView];
+    self.imageViewTest.contentMode = UIViewContentModeScaleAspectFit;
+    [[ILImageManager shared] cacheImageURL:url withImageView:self.imageViewTest];
+    
 }
 
 - (void)didReceiveMemoryWarning
