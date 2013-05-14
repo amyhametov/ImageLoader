@@ -32,7 +32,7 @@
     [manager.router.routeSet addRoute:[RKRoute
                                              routeWithClass:[ILROImageList class]
                                              pathPattern:@"fortest.txt"
-                                             method:RKRequestMethodGET]] ;
+                                             method:RKRequestMethodGET]];
     [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"text/plain"];
 
     [RKObjectManager setSharedManager:manager];

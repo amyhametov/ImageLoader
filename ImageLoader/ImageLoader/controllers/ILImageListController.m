@@ -10,6 +10,7 @@
 #import "ILImageListCell.h"
 #import "ILServerManager.h"
 #import "ILROImage.h"
+#import "ILImageManager.h"
 @interface ILImageListController ()
 
 @end
@@ -124,13 +125,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    ILROImage *obj = [data objectAtIndex:indexPath.row];
+    [[ILImageManager shared] cacheImageURL:obj.url];
+    
 }
 
 - (void) refreshButtonTap:(id)selector {

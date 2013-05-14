@@ -1,3 +1,3 @@
 {
-		"list":[{"name":"name1","url":"url1"},{"name":"name2","url":"url2"},{"name":"name3","url":"url3"},{"name":"name4","url":"url4"}]
+		"list":[{"name":"name1","url":"https://raw.github.com/zeit9eist/ImageLoader/master/image/image1.gif"},{"name":"name2","url":"https://raw.github.com/zeit9eist/ImageLoader/master/image/image2.gif"},{"name":"name3","url":"url3"},{"name":"name4","url":"url4"}]
 }
