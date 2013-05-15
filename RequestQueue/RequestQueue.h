@@ -81,7 +81,10 @@ typedef enum
 RequestQueueMode;
 
 
-@interface RQOperation : NSOperation
+@interface RQOperation : NSOperation{
+    int initSize;
+}
+
 
 @property (nonatomic, strong, readonly) NSURLRequest *request;
 @property (nonatomic, copy) RQCompletionHandler completionHandler;

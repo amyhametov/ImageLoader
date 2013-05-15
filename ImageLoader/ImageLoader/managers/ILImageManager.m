@@ -132,7 +132,11 @@
             progressBar.hidden = NO;
             cacheOperation.downloadProgressHandler =
                 ^(float progress, NSInteger bytesTransferred, NSInteger totalBytes,NSData *appendedData){
-                    [appendedData writeToFile:tmpStorePath atomically:YES];
+                    BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:tmpStorePath isDirectory:NO];
+
+                    if (!isFile) {
+                        [[NSFileManager defaultManager] createFileAtPath:tmpStorePath contents:nil attributes:nil];
+                    }
                     NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:tmpStorePath];
                     [handle seekToEndOfFile];
                     [handle writeData:appendedData];

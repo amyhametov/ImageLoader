@@ -68,7 +68,6 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
 + (RQOperation *)operationWithRequest:(NSURLRequest *)request andTmpFileName:(NSString *)aTmpFileName
 {
     RQOperation *result = [[RQOperation alloc] initWithRequest:request andTmpFileName:aTmpFileName];
-    //    return [[[self alloc] initWithRequest:request] autorelease];
     return result;
 }
 
@@ -78,6 +77,7 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
     {
         
         NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:request.URL];
+        req.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         self.tmpFileName = aTmpFileName;
         if (self.tmpFileName!=nil) {
             BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:self.tmpFileName isDirectory:NO];
@@ -87,7 +87,10 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
                 range = [range stringByAppendingString:[[NSNumber numberWithInt:_accumulatedData.length] stringValue]];
                 range = [range stringByAppendingString:@"-"];
                 [req setValue:range forHTTPHeaderField:@"Range"];
+                initSize = _accumulatedData.length;
             }
+            else
+                initSize = 0;
             
         }
         
@@ -109,6 +112,8 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
     if ((self = [self init]))
     {
         _request = [_request ah_retain];
+        initSize = 0;
+
         _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
     }
     return self;
@@ -194,19 +199,6 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
     return _autoRetryErrorCodes;
 }
 
-//- (void)dealloc
-//{
-//    [_request release];
-//    [_connection release];
-//    [_responseReceived release];
-//    [_accumulatedData release];
-//    [_completionHandler release];
-//    [_uploadProgressHandler release];
-//    [_downloadProgressHandler release];
-//    [_authenticationChallengeHandler release];
-//    [_autoRetryErrorCodes release];
-//    [super ah_dealloc];
-//}
 
 #pragma mark NSURLConnectionDelegate
 
@@ -238,6 +230,7 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    NSLog(@"RESPONSE %lld + %d",response.expectedContentLength,initSize);
     self.responseReceived = response;
 }
 
@@ -260,8 +253,8 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
     if (_downloadProgressHandler)
     {
         NSInteger bytesTransferred = [_accumulatedData length];
-        NSInteger totalBytes = MAX(0, _responseReceived.expectedContentLength);
-        _downloadProgressHandler((float)bytesTransferred / (float)totalBytes, bytesTransferred, totalBytes,data);
+        NSInteger totalBytes = MAX(0, _responseReceived.expectedContentLength)+initSize;
+        _downloadProgressHandler((float)bytesTransferred / ((float)totalBytes), bytesTransferred, totalBytes,data);
     }
 }
 
