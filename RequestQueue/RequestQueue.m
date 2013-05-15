@@ -64,10 +64,43 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
 @synthesize autoRetryErrorCodes = _autoRetryErrorCodes;
 @synthesize autoRetry = _autoRetry;
 
+
++ (RQOperation *)operationWithRequest:(NSURLRequest *)request andTmpFileName:(NSString *)aTmpFileName
+{
+    RQOperation *result = [[RQOperation alloc] initWithRequest:request andTmpFileName:aTmpFileName];
+    //    return [[[self alloc] initWithRequest:request] autorelease];
+    return result;
+}
+
+- (RQOperation *)initWithRequest:(NSURLRequest *)request andTmpFileName:(NSString *)aTmpFileName
+{
+    if ((self = [self init]))
+    {
+        
+        NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:request.URL];
+        self.tmpFileName = aTmpFileName;
+        if (self.tmpFileName!=nil) {
+            BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:self.tmpFileName isDirectory:NO];
+            if (isFile) {
+                _accumulatedData = [[NSMutableData alloc] initWithContentsOfFile:self.tmpFileName];
+                NSString *range = @"bytes=";
+                range = [range stringByAppendingString:[[NSNumber numberWithInt:_accumulatedData.length] stringValue]];
+                range = [range stringByAppendingString:@"-"];
+                [req setValue:range forHTTPHeaderField:@"Range"];
+            }
+            
+        }
+        
+        
+        _request = [_request ah_retain];
+        _connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:NO];
+    }
+    return self;
+}
+
 + (RQOperation *)operationWithRequest:(NSURLRequest *)request
 {
     RQOperation *result = [[RQOperation alloc] initWithRequest:request];
-//    return [[[self alloc] initWithRequest:request] autorelease];
     return result;
 }
 
@@ -213,7 +246,7 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
     if (_uploadProgressHandler)
     {
         float progress = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
-        _uploadProgressHandler(progress, totalBytesWritten, totalBytesExpectedToWrite);
+        _uploadProgressHandler(progress, totalBytesWritten, totalBytesExpectedToWrite,nil);
     }
 }
 
@@ -228,7 +261,7 @@ NSString *const HTTPResponseErrorDomain = @"HTTPResponseErrorDomain";
     {
         NSInteger bytesTransferred = [_accumulatedData length];
         NSInteger totalBytes = MAX(0, _responseReceived.expectedContentLength);
-        _downloadProgressHandler((float)bytesTransferred / (float)totalBytes, bytesTransferred, totalBytes);
+        _downloadProgressHandler((float)bytesTransferred / (float)totalBytes, bytesTransferred, totalBytes,data);
     }
 }
 

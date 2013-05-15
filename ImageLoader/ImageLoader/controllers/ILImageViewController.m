@@ -41,7 +41,10 @@
     [[ILImageManager shared] cacheImageURL:url withImageView:self.imageViewTest andProgress:self.progressBar];
     
 }
-
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[ILImageManager shared] stopLoad];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

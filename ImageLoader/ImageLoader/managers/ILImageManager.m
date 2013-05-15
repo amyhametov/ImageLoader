@@ -28,7 +28,7 @@
     
     if (self)
     {
-        queue = [[RequestQueue alloc] init];
+        queue = [RequestQueue mainQueue];
     }
     return self;
 }
@@ -66,6 +66,8 @@
 
         
         NSString *storePath = [documentsDirectoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"images/%@",fileName]];
+        NSString *tmpStorePath = [documentsDirectoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"images/%@.tmp",fileName]];
+
         NSLog(@"storePath %@",storePath);
         isFile = [[NSFileManager defaultManager] fileExistsAtPath:storePath isDirectory:NO];
         
@@ -97,12 +99,18 @@
             NSLog(@"START %@",url);
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             
-            RQOperation *cacheOperation = [RQOperation operationWithRequest:request];
+            RQOperation *cacheOperation = [RQOperation operationWithRequest:request andTmpFileName:tmpStorePath];
             cacheOperation.completionHandler = ^(NSURLResponse *response, NSData *data, NSError *error){
                 if (data && error==nil)
                 {
                     NSLog(@"Image loaded %@",response.URL.absoluteString);
                     [data writeToFile:storePath atomically:YES];
+                    NSError *error = nil;
+                    if (![[NSFileManager defaultManager] removeItemAtPath:tmpStorePath error:&error])
+                    {
+                        NSLog(@"TMP Remove error: %@", error);
+                        
+                    }
                     if ([view isMemberOfClass:[UIImageView class]]) {
                         ((UIImageView *)view).image = [UIImage imageWithData:data];
                     }
@@ -123,7 +131,13 @@
             progressBar.progress = 0;
             progressBar.hidden = NO;
             cacheOperation.downloadProgressHandler =
-                ^(float progress, NSInteger bytesTransferred, NSInteger totalBytes){
+                ^(float progress, NSInteger bytesTransferred, NSInteger totalBytes,NSData *appendedData){
+                    [appendedData writeToFile:tmpStorePath atomically:YES];
+                    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:tmpStorePath];
+                    [handle seekToEndOfFile];
+                    [handle writeData:appendedData];
+                    [handle closeFile];
+
                     if (progress<1)
                     {
                         progressBar.progress = progress;
@@ -155,5 +169,8 @@
         NSLog(@"Create directory error: %@", error);
 
     }
+}
+-(void) stopLoad{
+    [queue cancelAllRequests];
 }
 @end

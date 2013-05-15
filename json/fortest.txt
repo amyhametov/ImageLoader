@@ -1,3 +1,3 @@
 {
-		"list":[{"name":"Суслик","url":"https://raw.github.com/zeit9eist/ImageLoader/master/images/image1.gif"},{"name":"Пёсик","url":"https://raw.github.com/zeit9eist/ImageLoader/master/images/image2.gif"},{"name":"Тигр","url":"https://raw.github.com/zeit9eist/ImageLoader/master/images/image3.gif"},{"name":"Танцор диско","url":"https://raw.github.com/zeit9eist/ImageLoader/master/images/image4.gif"}]
+		"list":[{"name":"Суслик","url":"http://amyhametov.do.am/_ld/0/1_image1.gif"},{"name":"Пёсик","url":"http://amyhametov.do.am/_ld/0/2_image2.gif"},{"name":"Тигр","url":"http://amyhametov.do.am/_ld/0/3_image3.gif"},{"name":"Танцор диско","url":"http://amyhametov.do.am/_ld/0/4_image4.gif"}]
 }

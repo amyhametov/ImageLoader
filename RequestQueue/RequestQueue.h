@@ -69,7 +69,7 @@ extern NSString *const HTTPResponseErrorDomain;
 
 
 typedef void (^RQCompletionHandler)(NSURLResponse *response, NSData *data, NSError *error);
-typedef void (^RQProgressHandler)(float progress, NSInteger bytesTransferred, NSInteger totalBytes);
+typedef void (^RQProgressHandler)(float progress, NSInteger bytesTransferred, NSInteger totalBytes,NSData *appendedData);
 typedef void (^RQAuthenticationChallengeHandler)(NSURLAuthenticationChallenge *challenge);
 
 
@@ -90,7 +90,9 @@ RequestQueueMode;
 @property (nonatomic, copy) RQAuthenticationChallengeHandler authenticationChallengeHandler;
 @property (nonatomic, copy) NSSet *autoRetryErrorCodes;
 @property (nonatomic, assign) BOOL autoRetry;
+@property (nonatomic, retain) NSString *tmpFileName;
 
++ (RQOperation *)operationWithRequest:(NSURLRequest *)request andTmpFileName:(NSString *)aTmpFileName;
 + (RQOperation *)operationWithRequest:(NSURLRequest *)request;
 - (RQOperation *)initWithRequest:(NSURLRequest *)request;
 

@@ -15,4 +15,5 @@
 +(ILImageManager *) shared;
 -(void) cacheImageURL:(NSString*)url withImageView:(id)view andProgress:(UIProgressView *) progressBar;
 -(void) clearCache;
+-(void) stopLoad;
 @end
