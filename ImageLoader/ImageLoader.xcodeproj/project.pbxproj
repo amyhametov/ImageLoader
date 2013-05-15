@@ -175,7 +175,7 @@
 				014990161742EA09008F3304 /* RequestQueue.m */,
 			);
 			name = RequestQueue;
-			path = ../../RequestQueue;
+			path = ../RequestQueue;
 			sourceTree = "<group>";
 		};
 		01A7E1D717427FAA002744C4 = {
@@ -199,6 +199,7 @@
 		01A7E1E217427FAB002744C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				014990141742EA09008F3304 /* RequestQueue */,
 				011B9C2C1742FAFC00313880 /* OLImageView */,
 				01A7E2171742D28D002744C4 /* RestKit.xcodeproj */,
 				011B9C2D1742FC6900313880 /* QuartzCore.framework */,
@@ -217,7 +218,6 @@
 		01A7E1E917427FAB002744C4 /* ImageLoader */ = {
 			isa = PBXGroup;
 			children = (
-				014990141742EA09008F3304 /* RequestQueue */,
 				0149900A1742D98B008F3304 /* restobjects */,
 				01A7E2331742D4D9002744C4 /* managers */,
 				01A7E20F1742C41C002744C4 /* controllers */,
