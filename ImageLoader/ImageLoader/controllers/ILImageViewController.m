@@ -37,7 +37,8 @@
     [super viewDidLoad];
 //    [[ILImageManager shared] cacheImageURL:url withImageView:self.imageView];
     self.imageViewTest.contentMode = UIViewContentModeScaleAspectFit;
-    [[ILImageManager shared] cacheImageURL:url withImageView:self.imageViewTest];
+    self.imageViewTest.backgroundColor = [UIColor darkGrayColor];
+    [[ILImageManager shared] cacheImageURL:url withImageView:self.imageViewTest andProgress:self.progressBar];
     
 }
 

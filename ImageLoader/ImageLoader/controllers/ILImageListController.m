@@ -23,7 +23,7 @@
     self = [super initWithStyle:style];
     if (self) {
         self.title = @"Веселые картинки";
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(aboutButtonTap:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(trashButtonTap:)];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshButtonTap:)];
 
         // Custom initialization
@@ -34,6 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundColor = [UIColor darkGrayColor];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -139,7 +140,8 @@
     [self updateList];
     
 }
-- (void) aboutButtonTap:(id)selector {
+- (void) trashButtonTap:(id)selector {
+    [[ILImageManager shared] clearCache];
 }
 - (void) updateList{
     [[ILServerManager shared] loadImageList];

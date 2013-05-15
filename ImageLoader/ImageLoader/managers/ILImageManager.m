@@ -33,7 +33,7 @@
     return self;
 }
 
--(void) cacheImageURL:(NSString*)url withImageView:(id)view{
+-(void) cacheImageURL:(NSString*)url withImageView:(id)view andProgress:(UIProgressView *) progressBar{
     
     if (url!=nil){
         NSMutableString *fileName= [NSMutableString stringWithString:url];
@@ -41,12 +41,39 @@
         [fileName replaceOccurrencesOfString:@"/" withString:@"_" options:NSLiteralSearch range:NSMakeRange(0, [fileName length])];
         [fileName replaceOccurrencesOfString:@":" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [fileName length])];
         NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        
+        
+        
         NSString *documentsDirectoryPath = [paths lastObject];
-        NSString *storePath = [documentsDirectoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",fileName]];        
-        BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:storePath isDirectory:NO];
+        
+        
+        NSString *filePathAndDirectory = [documentsDirectoryPath stringByAppendingPathComponent:@"images"];
+        NSString *pathToFile = filePathAndDirectory;
+        BOOL isFile = [[NSFileManager defaultManager] fileExistsAtPath:pathToFile isDirectory:NO];
+        
+        NSError *error = nil;
+        if(!isFile)
+        {
+            if (![[NSFileManager defaultManager] createDirectoryAtPath:filePathAndDirectory
+                                           withIntermediateDirectories:NO
+                                                            attributes:nil
+                                                                 error:&error])
+            {
+                NSLog(@"Create directory error: %@", error);
+            }
+            
+        }
+
+        
+        NSString *storePath = [documentsDirectoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"images/%@",fileName]];
+        NSLog(@"storePath %@",storePath);
+        isFile = [[NSFileManager defaultManager] fileExistsAtPath:storePath isDirectory:NO];
+        
+        
         
         if(isFile)
         {
+            progressBar.hidden = YES;
             UIImage *image = [UIImage imageWithContentsOfFile:storePath];
             if (image){
                 NSLog(@"load from file");
@@ -54,12 +81,10 @@
                     ((UIImageView *)view).image = image;
                 }
                 if ([view isMemberOfClass:[UIWebView class]]) {
-                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:storePath]];
                     NSData *data = [NSData dataWithContentsOfFile:storePath];
                     [(UIWebView *)view loadData:data MIMEType:@"image/gif" textEncodingName:nil baseURL:nil];                    
                 }
                 if ([view isMemberOfClass:[OLImageView class]]) {
-                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:storePath]];
                     NSData *data = [NSData dataWithContentsOfFile:storePath];
                     UIImage *image = [OLImage imageWithData:data];
                     ((OLImageView *)view).image = image;
@@ -72,7 +97,8 @@
             NSLog(@"START %@",url);
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             
-            [queue addRequest:request completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            RQOperation *cacheOperation = [RQOperation operationWithRequest:request];
+            cacheOperation.completionHandler = ^(NSURLResponse *response, NSData *data, NSError *error){
                 if (data && error==nil)
                 {
                     NSLog(@"Image loaded %@",response.URL.absoluteString);
@@ -84,16 +110,50 @@
                         [(UIWebView *)view loadData:data MIMEType:@"image/gif" textEncodingName:nil baseURL:nil];
                         
                     }
+                    if ([view isMemberOfClass:[OLImageView class]]) {
+                        UIImage *image = [OLImage imageWithData:data];
+                        ((OLImageView *)view).image = image;
+                    }
                 }
                 else{
                     NSLog(@"ERROR %@",response.URL.absoluteString);
 
                 }
-            }];
+            };
+            progressBar.progress = 0;
+            progressBar.hidden = NO;
+            cacheOperation.downloadProgressHandler =
+                ^(float progress, NSInteger bytesTransferred, NSInteger totalBytes){
+                    if (progress<1)
+                    {
+                        progressBar.progress = progress;
+                    }
+                    else {
+                        progressBar.hidden = YES;
+                    }
+                };
+
+            [[RequestQueue mainQueue] addOperation:cacheOperation];
+            
             
         }
     }
     
 }
+-(void) clearCache{
+    NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    
+    
+    
+    NSString *documentsDirectoryPath = [paths lastObject];
+    
+    
+    NSString *filePathAndDirectory = [documentsDirectoryPath stringByAppendingPathComponent:@"images"];
+    NSError *error = nil;
+    if (![[NSFileManager defaultManager] removeItemAtPath:filePathAndDirectory error:&error])
+    {
+        NSLog(@"Create directory error: %@", error);
 
+    }
+}
 @end

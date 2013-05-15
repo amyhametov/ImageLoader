@@ -13,6 +13,6 @@
 @property (nonatomic,retain) RequestQueue *queue;
 
 +(ILImageManager *) shared;
--(void) cacheImageURL:(NSString*)url withImageView:(id)view;
-
+-(void) cacheImageURL:(NSString*)url withImageView:(id)view andProgress:(UIProgressView *) progressBar;
+-(void) clearCache;
 @end

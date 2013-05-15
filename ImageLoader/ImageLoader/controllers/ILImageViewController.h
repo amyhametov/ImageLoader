@@ -14,6 +14,7 @@
 }
 @property (nonatomic,assign) IBOutlet UIWebView *imageView;
 @property (nonatomic,assign) IBOutlet OLImageView *imageViewTest;
+@property (nonatomic,assign) IBOutlet UIProgressView *progressBar;
 
 - (id)initWithImageWithURL:(NSString *)aURL;
 @end
